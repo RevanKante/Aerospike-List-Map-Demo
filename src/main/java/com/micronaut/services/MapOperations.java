@@ -17,22 +17,13 @@ public class MapOperations {
     @Inject
     AeroMapperConfiguration configuration;
 
-    public String addMap(int mapKey) {
+    public String addMap(int mapKey, Map<String, Integer> number) {
         String message = "";
         try {
-            Faker faker = new Faker();
-            Map<String, Integer> numbers = new HashMap<>();
-
-            numbers.put("One", 1);
-            numbers.put("Two", 2);
-            numbers.put("Three", 3);
-            numbers.put("Four", 4);
-            numbers.put("Five", 5);
-
             Key key = new Key("test","mapset",mapKey);
 
             Bin bin1 = new Bin("index", mapKey);
-            Bin bin2 = new Bin("map", numbers);
+            Bin bin2 = new Bin("map", number);
 
             WritePolicy policy = new WritePolicy();
             policy.sendKey = true;
@@ -62,11 +53,11 @@ public class MapOperations {
                                 MapOperation.put(new MapPolicy(),"map", Value.get(stringKey), Value.get(value)
             ));
 
-            result = "Inserted successfully";
+            result = "Updated successfully";
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
-            result = "Insertion failed";
+            result = "Failed to update";
         }
         return result;
     }

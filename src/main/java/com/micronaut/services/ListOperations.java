@@ -91,7 +91,7 @@ public class ListOperations {
         }
     }
 
-    public String insertIntoList(String fruit, int key1) {
+    public String updateList(String fruit, int key1) {
         String result = "";
         try {
             AerospikeClient client = configuration.getClient();
@@ -102,11 +102,11 @@ public class ListOperations {
             client.operate(client.writePolicyDefault, key,
                     ListOperation.append("list", Value.get(fruit))
             );
-            result = "Inserted successfully";
+            result = "Updated successfully";
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
-            result = "Insertion failed";
+            result = "Failed to update";
         }
         return result;
     }

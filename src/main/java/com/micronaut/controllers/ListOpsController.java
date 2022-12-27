@@ -1,10 +1,7 @@
 package com.micronaut.controllers;
 
 import com.micronaut.services.ListOperations;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.PathVariable;
-import io.micronaut.http.annotation.QueryValue;
+import io.micronaut.http.annotation.*;
 import jakarta.inject.Inject;
 
 import java.util.List;
@@ -15,7 +12,7 @@ public class ListOpsController {
     @Inject
     ListOperations listService;
 
-    @Get("/add")
+    @Post("/add")
     public String add(@QueryValue int key) {
         return listService.addList(key);
     }
@@ -25,13 +22,13 @@ public class ListOpsController {
         return listService.getList(key);
     }
 
-    @Get("/insert/{fruit}/{key}")
-    public String insert(@PathVariable String fruit,@PathVariable int key) {
-        return listService.insertIntoList(fruit, key);
+    @Put("/updatelist/{key}")
+    public String updateList(@QueryValue String fruit,@PathVariable int key) {
+        return listService.updateList(fruit, key);
     }
 
-    @Get("/remove/{fruit}/{key}")
-    public String removeFruit(@PathVariable String fruit,@PathVariable int key) {
+    @Put("/remove/{key}")
+    public String removeFruit(@QueryValue String fruit,@PathVariable int key) {
         return listService.removeFruit(fruit, key);
     }
 
@@ -40,7 +37,7 @@ public class ListOpsController {
         return listService.sortList(key);
     }
 
-    @Get("/deletelist/{key}")
+    @Delete("/deletelist/{key}")
     public String deleteList(@PathVariable int key) {
         return listService.deleteList(key);
     }

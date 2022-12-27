@@ -11,9 +11,9 @@ public class MapOpsController {
     @Inject
     MapOperations mapService;
 
-    @Get("/add")
-    public String add(@QueryValue int key) {
-        return mapService.addMap(key);
+    @Post("/add")
+    public String add(@QueryValue int key, @Body Map<String, Integer> number) {
+        return mapService.addMap(key, number);
     }
 
     @Get("/get/{key}")
@@ -21,13 +21,13 @@ public class MapOpsController {
         return mapService.getMapRec(key);
     }
 
-    @Get("/insert/{key}")
+    @Put("/update/{key}")
     public String insert(@PathVariable int key, @QueryValue Integer value, @QueryValue String stringKey) {
         return mapService.insertIntoMap(stringKey, value, key);
     }
 
-    @Get("/remove/{number}/{key}")
-    public String removeNumber(@PathVariable String number,@PathVariable int key) {
+    @Put("/remove/{key}")
+    public String removeNumber(@QueryValue String number,@PathVariable int key) {
         return mapService.removeNumber(number, key);
     }
 
